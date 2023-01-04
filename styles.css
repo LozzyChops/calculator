@@ -1,0 +1,112 @@
+html {
+    box-sizing: border-box;
+}
+
+*, 
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#calculator-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 200px;
+    width: 160px;
+}
+
+#calculator-container #display, #calculator-container button {
+    border: 1px;
+    border-style: solid;
+}
+
+#display {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: end;
+    padding-right: 5px;
+}
+
+#display-area {
+    height: 40px;
+    width: 120px;
+}
+
+button {
+    height: 40px;
+    width: 40px;
+}
+
+#division {
+    order: 1;
+}
+
+#seven {
+    order: 2;
+}
+
+#eight {
+    order: 3;
+}
+
+#nine {
+    order: 4;
+}
+
+#multiplication {
+    order: 5;
+}
+
+#four {
+    order: 6;
+}
+
+#five {
+    order: 7;
+}
+
+#six {
+    order: 8;
+}
+
+#subtraction {
+    order: 9;
+}
+
+#one {
+    order: 10;
+}
+
+#two {
+    order: 11;
+}
+
+#three {
+    order: 12;
+}
+
+#addition {
+    order: 13;
+}
+
+#clear {
+    order: 14;
+}
+
+#zero {
+    order: 15;
+}
+
+#bonus {
+    order: 16;
+}
+
+#equals {
+    order: 17;
+}
