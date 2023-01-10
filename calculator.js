@@ -40,7 +40,13 @@ const operate = function(storedOperand, storedValue, displayValue) {
     return answer;
 };
 
-const updateDisplay = (displayValue) => document.getElementById("display").textContent = displayValue;
+const updateDisplay = function(displayValue) {
+    if (displayValue.toString().length > 9) {
+        document.getElementById("display").textContent = (Math.round(displayValue * 10000000000) / 10000000000);
+    } else {
+        document.getElementById("display").textContent = displayValue;
+    }
+};
 
 const testDisplayEmpty = (displayValue) => (displayValue === "") ? true : false;
 
@@ -58,7 +64,7 @@ for (let i = 0; i < buttonAll.length; i++) {
     buttonAll[i].addEventListener('click', function (e) {
         switch(e.target.textContent) {
             case "1":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 1;
                     updateDisplay(displayValue);
                 } else {
@@ -67,7 +73,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "2":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 2;
                     updateDisplay(displayValue);
                 } else {
@@ -76,7 +82,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "3":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 3;
                     updateDisplay(displayValue);
                 } else {
@@ -85,7 +91,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "4":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 4;
                     updateDisplay(displayValue);
                 } else {
@@ -94,7 +100,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "5":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 5;
                     updateDisplay(displayValue);
                 } else {
@@ -103,7 +109,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "6":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 6;
                     updateDisplay(displayValue);
                 } else {
@@ -112,7 +118,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "7":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 7;
                     updateDisplay(displayValue);
                 } else {
@@ -121,7 +127,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "8":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 8;
                     updateDisplay(displayValue);
                 } else {
@@ -130,7 +136,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "9":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 9;
                     updateDisplay(displayValue);
                 } else {
@@ -139,7 +145,7 @@ for (let i = 0; i < buttonAll.length; i++) {
                 }
                 break;
             case "0":
-                if (testDisplayEmpty(displayValue) || !(testStorageEmpty(storedValue))) {
+                if (testDisplayEmpty(displayValue)) {
                     displayValue = 0;
                     updateDisplay(displayValue);
                 } else {
@@ -151,10 +157,12 @@ for (let i = 0; i < buttonAll.length; i++) {
                 if (testOperandEmpty(storedOperand)) {
                     storedOperand = "/";
                     storedValue = displayValue;
+                    resetDisplayValue();
                 } else {
                     displayValue = operate(storedOperand, storedValue, displayValue);
                     updateDisplay(displayValue);
                     storedValue = displayValue;
+                    resetDisplayValue();
                     storedOperand = "/";
                 }
                 break;
@@ -162,10 +170,12 @@ for (let i = 0; i < buttonAll.length; i++) {
                 if (testOperandEmpty(storedOperand)) {
                     storedOperand = "*";
                     storedValue = displayValue;
+                    resetDisplayValue();
                 } else {
                     displayValue = operate(storedOperand, storedValue, displayValue);
                     updateDisplay(displayValue);
                     storedValue = displayValue;
+                    resetDisplayValue();
                     storedOperand = "*";
                 }
                 break;
@@ -173,10 +183,12 @@ for (let i = 0; i < buttonAll.length; i++) {
                 if (testOperandEmpty(storedOperand)) {
                     storedOperand = "+";
                     storedValue = displayValue;
+                    resetDisplayValue();
                 } else {
                     displayValue = operate(storedOperand, storedValue, displayValue);
                     updateDisplay(displayValue);
                     storedValue = displayValue;
+                    resetDisplayValue();
                     storedOperand = "+";
                 }
                 break;
@@ -184,10 +196,12 @@ for (let i = 0; i < buttonAll.length; i++) {
                 if (testOperandEmpty(storedOperand)) {
                     storedOperand = "-";
                     storedValue = displayValue;
+                    resetDisplayValue();
                 } else {
                     displayValue = operate(storedOperand, storedValue, displayValue);
                     updateDisplay(displayValue);
                     storedValue = displayValue;
+                    resetDisplayValue();
                     storedOperand = "-";
                 }
                 break;
@@ -207,238 +221,3 @@ for (let i = 0; i < buttonAll.length; i++) {
         }
     })
 }
-
-/*
-for (let i = 0; i < buttonAll.length; i++) {
-    buttonAll[i].addEventListener('click', function (e) {
-        if (storedOperand !== "") {
-            switch (e.target.textContent) {
-                case "/":
-                    storedValue = displayValue;
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "/";
-                    break;
-                case "*":
-                    storedValue = displayValue;
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "*";
-                    break;
-                case "+":
-                    storedValue = displayValue;
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "+";
-                    break;
-                case "-":
-                    storedValue = displayValue;
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "-";
-                    break;
-                case "=":
-                    storedValue = displayValue;
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "";
-                    break;
-            };
-        } else {
-            storedOperand = e.target.textContent;
-            storedValue = displayValue;
-        };
-        if (displayValue === 0) {
-            displayValue = e.target.textContent;
-            updateDisplay(displayValue);
-        } else {
-            displayValue = displayValue.toString + e.target.textContent;
-            Number(displayValue);
-            updateDisplay(displayValue);
-        };
-        if (e.target.textContent === "C") {
-            resetDisplayValue();
-            resetStoredValue();
-            resetStoreOperand();
-            updateDisplay(displayValue);
-        }
-    })
-};
-*/
-
-/*
-for (let i = 0; i < buttonAll.length; i++) {
-    buttonAll[i].addEventListener('click', function (e) {
-        switch (e.target.textContent) {
-            case "0":
-                if (testIfZero(displayValue)) {
-                    break;
-                } else {
-                    displayValue.toString() += "0";
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }
-                break;                
-            case "1":
-                if (testIfZero(displayValue)) {
-                    displayValue = 1;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 1;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                };                
-                break;
-            case "2":
-                if (testIfZero(displayValue)) {
-                    displayValue = 2;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 2;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }                
-                break;
-            case "3":
-                if (testIfZero(displayValue)) {
-                    displayValue = 3;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 3;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }                
-                break;
-            case "4":
-                if (testIfZero(displayValue)) {
-                    displayValue = 4;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 4;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }                
-                break;
-            case "5":
-                if (testIfZero(displayValue)) {
-                    displayValue = 5;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 5;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }                
-                break;
-            case "6":
-                if (testIfZero(displayValue)) {
-                    displayValue = 6;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 6;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }                
-                break;
-            case "7":
-                if (testIfZero(displayValue)) {
-                    displayValue = 7;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 7;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }                
-                break;
-            case "8":
-                if (testIfZero(displayValue)) {
-                    displayValue = 8;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 8;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }                
-                break;
-            case "9":
-                if (testIfZero(displayValue)) {
-                    displayValue = 9;
-                    updateDisplay(displayValue);
-                } else {
-                    storedValue = displayValue;
-                    displayValue = 9;
-                    updateDisplay(displayValue);
-                    Number(displayValue);
-                }                
-                break;
-            case "C":
-                resetDisplayValue();
-                resetStoredValue();
-                resetStoreOperand();
-                updateDisplay(displayValue);
-                break;
-            case "/":
-                if (storedOperand !== "") {
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "/";
-                } else {
-                    storedOperand = "/";
-                    storedValue = displayValue;
-                    document.getElementById("display").textContent = storedValue;
-                    displayValue = 0;
-                };
-                break;
-            case "*":
-                if (storedOperand !== "") {
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "*"
-                } else {
-                    storedOperand = "*";
-                    storedValue = displayValue;
-                    document.getElementById("display").textContent = storedValue;
-                    displayValue = 0;
-                };
-                break;
-            case "+":
-                if (storedOperand !== "") {
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "+";
-                } else {
-                    storedOperand = "+";
-                    storedValue = displayValue;
-                    document.getElementById("display").textContent = storedValue;
-                    displayValue = 0;
-                };
-                break;
-            case "-":
-                if (storedOperand !== "") {
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "-";
-                } else {
-                    storedOperand = "-";
-                    storedValue = displayValue;
-                    document.getElementById("display").textContent = storedValue;
-                    displayValue = 0;
-                };
-                break;
-            case "=":
-                if (storedOperand !== "") {
-                    displayValue = operate(storedOperand, storedValue, displayValue);
-                    updateDisplay(displayValue);
-                    storedOperand = "";
-                };
-        };
-    });
-};
-*/
